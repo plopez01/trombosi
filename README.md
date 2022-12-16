@@ -1,0 +1,2 @@
+# trombosi
+Trombosi bitsxlamarato
