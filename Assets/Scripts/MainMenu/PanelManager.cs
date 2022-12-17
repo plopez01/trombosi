@@ -11,7 +11,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private FadeablePanel currentPanel; // also fading in panel, nullable cuando cambiando a scene
     [SerializeField, Range(0, 3)] private float fadeTime;
     [SerializeField, Range(0, 3)] private float screenExtraWait;
-    [SerializeField, Range(0, 30)] private int verticalMove;
+    [SerializeField, Range(-30, 30)] private int verticalMove;
     private FadeablePanel fadingOutPanel;
     private AsyncOperation screenBeingOpened;
     private float alpha = 0;
