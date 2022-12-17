@@ -6,8 +6,6 @@ public class Trombocit : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
 
-    [SerializeField] private Vector2 initialForce;
-
     private Rigidbody2D rigidbody;
 
     // Start is called before the first frame update
@@ -19,13 +17,14 @@ public class Trombocit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rigidbody.AddForce(initialForce, ForceMode2D.Impulse);
-        if (!gameManager.ValveOpen)
+        Debug.Log((int)(gameManager.AnimationPercentage * 100));
+        rigidbody.AddForce(gameManager.bloodStream.Force, ForceMode2D.Force);
+        if (gameManager.ValveOpen)
         {
-            rigidbody.drag = gameManager.Drag;
+            rigidbody.drag = gameManager.bloodStream.Drag * (1-gameManager.AnimationPercentage);
         } else
         {
-            rigidbody.drag = 0;
+            rigidbody.drag = gameManager.bloodStream.Drag * gameManager.AnimationPercentage;
         }
     }
 
@@ -33,4 +32,10 @@ public class Trombocit : MonoBehaviour
     {
         gameManager = _gm;
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Destroyer") Destroy(gameObject);
+    }
+
 }
