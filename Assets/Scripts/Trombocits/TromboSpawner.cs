@@ -5,10 +5,11 @@ using UnityEngine;
 public class TromboSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject tromboPrefab;
+    [SerializeField] private int amount = 10;
     [SerializeField] private Vector2 area;
     
 
-    public void Spawn(int amount, GameManager gm)
+    public void Spawn(GameManager gm)
     {
         for (int i = 0; i < amount; i++)
         {

@@ -6,9 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField, Range(0.1f, 4)] private float pulseInterval;
 
-    [SerializeField] private float intervalDelay;
-
-    [SerializeField] private int tromboAmount = 20;
+    [SerializeField, Range(0, 1)] private float _intervalDelay;
 
     [SerializeField] private Animator valveAnimator;
 
@@ -20,7 +18,7 @@ public class GameManager : MonoBehaviour
     private float delayTimer = 0;
     private bool valveOpen = false;
 
-
+    private float intervalDelay;
 
     public BloodStream bloodStream
     {
@@ -48,10 +46,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         valveAnimator.speed = 1 / pulseInterval;
+        intervalDelay = pulseInterval * _intervalDelay;
+
         if (Time.unscaledTime - delayTimer >= intervalDelay)
         {
             delayTimer = Time.unscaledTime;
-
             if (Time.unscaledTime - timer >= pulseInterval)
             {
                 timer = Time.unscaledTime;
@@ -59,7 +58,7 @@ public class GameManager : MonoBehaviour
 
                 if (!valveOpen)
                 {
-                    tromboSpawner.Spawn(tromboAmount, this);
+                    tromboSpawner.Spawn(this);
                 }
                 valveAnimator.SetBool("Open", valveOpen);
                 Debug.Log("Valve open: " + valveOpen);

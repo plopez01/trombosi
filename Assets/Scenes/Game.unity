@@ -1086,7 +1086,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913493352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -15, z: 0}
+  m_LocalPosition: {x: 0, y: -17.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1106,7 +1106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tromboPrefab: {fileID: 218982929835399930, guid: 0d19d983558796948ba7605acec12216, type: 3}
-  area: {x: 3, y: 5}
+  amount: 5
+  area: {x: 3, y: 8}
 --- !u!1 &1930195708
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,8 +1223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0c8d3dd25d3eb4295e1dce84945d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulseInterval: 1
-  tromboAmount: 5
+  pulseInterval: 3
+  _intervalDelay: 0.5
   valveAnimator: {fileID: 937110681}
   tromboSpawner: {fileID: 1913493354}
 --- !u!4 &2022744781
@@ -1265,8 +1266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb79f1516ca826f42937703014b0e4a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  closedDrag: 1.85
-  streamForce: {x: 0, y: 1}
+  closedDrag: 4
+  streamForce: {x: 0, y: 3}
 --- !u!1 &2033547393
 GameObject:
   m_ObjectHideFlags: 0

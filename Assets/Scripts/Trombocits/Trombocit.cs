@@ -17,14 +17,13 @@ public class Trombocit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log((int)(gameManager.AnimationPercentage * 100));
         rigidbody.AddForce(gameManager.bloodStream.Force, ForceMode2D.Force);
         if (gameManager.ValveOpen)
         {
-            rigidbody.drag = gameManager.bloodStream.Drag * (1-gameManager.AnimationPercentage);
+            rigidbody.drag = gameManager.bloodStream.Drag * (1-gameManager.AnimationPercentage) * (1 - gameManager.AnimationPercentage);
         } else
         {
-            rigidbody.drag = gameManager.bloodStream.Drag * gameManager.AnimationPercentage;
+            rigidbody.drag = gameManager.bloodStream.Drag * gameManager.AnimationPercentage * gameManager.AnimationPercentage;
         }
     }
 

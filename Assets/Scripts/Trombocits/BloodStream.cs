@@ -6,6 +6,8 @@ public class BloodStream : MonoBehaviour
 {
     [SerializeField] private float closedDrag;
 
+    [SerializeField] private float baseDrag;
+
     [SerializeField] private Vector2 streamForce;
 
     public Vector2 Force
@@ -15,6 +17,6 @@ public class BloodStream : MonoBehaviour
 
     public float Drag
     {
-        get { return closedDrag; }
+        get { return closedDrag + baseDrag; }
     }
 }
