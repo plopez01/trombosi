@@ -31,6 +31,11 @@ public class FadeablePanel : FadeableComponent
         }
     }
 
+    public void moveY(float amount)
+    {
+        transform.Translate(new Vector2(0, amount));
+    }
+
     void Update()
     {
         

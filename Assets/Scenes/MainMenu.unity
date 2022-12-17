@@ -2110,6 +2110,7 @@ MonoBehaviour:
   currentPanel: {fileID: 1862574681}
   fadeTime: 0.5
   screenExtraWait: 1
+  verticalMove: 20
 --- !u!114 &1569851274
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private FadeablePanel currentPanel; // also fading in panel, nullable cuando cambiando a scene
     [SerializeField, Range(0, 3)] private float fadeTime;
     [SerializeField, Range(0, 3)] private float screenExtraWait;
+    [SerializeField, Range(0, 30)] private int verticalMove;
     private FadeablePanel fadingOutPanel;
     private AsyncOperation screenBeingOpened;
     private float alpha = 0;
@@ -18,7 +19,7 @@ public class PanelManager : MonoBehaviour
 
     public void changeToPanel(FadeablePanel panel)
     {
-        panel.gameObject.SetActive(true);
+        if (panel != null) panel.gameObject.SetActive(true);
         lastFadeTime = Time.unscaledTime;
         alpha = 0;
         fadingOutPanel = this.currentPanel;
@@ -52,11 +53,19 @@ public class PanelManager : MonoBehaviour
     {
         if (alpha < 1)
         {
-            alpha = Mathf.Min(1, alpha + (Time.unscaledTime - lastFadeTime)/fadeTime);
+            float diff = (Time.unscaledTime - lastFadeTime) / fadeTime;
+            alpha = Mathf.Min(1, alpha + diff);
             lastFadeTime = Time.unscaledTime;
-            if (currentPanel != null) currentPanel.setAlpha(alpha);
+            if (currentPanel != null)
+            {
+                currentPanel.setAlpha(alpha);
+                currentPanel.moveY(diff * verticalMove);
+            }
             if (fadingOutPanel != null)
-                fadingOutPanel.setAlpha(1- alpha);
+            {
+                fadingOutPanel.setAlpha(1 - alpha);
+                fadingOutPanel.moveY(-diff * verticalMove);
+            }
         } else if (screenBeingOpened != null && (Time.unscaledTime - lastFadeTime) > screenExtraWait)
         {
             AsyncOperation op = screenBeingOpened;
