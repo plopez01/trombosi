@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TromboSpawner tromboSpawner;
 
+    [SerializeField] private AnticoagSpawner anticoagSpawner;
+
+    [SerializeField] private List<Anticoagulant> anticoagulants = new List<Anticoagulant>();
+
     private BloodStream _bloodStream;
 
     private float timer = 0;
@@ -87,7 +91,10 @@ public class GameManager : MonoBehaviour
             valveAnimator.SetBool("Open", valveOpen);
             Debug.Log("Valve open: " + valveOpen);
         }
-       
+    }
 
+    public void ReleaseAnticoagulant()
+    {
+        anticoagSpawner.SpawnAnticoagulantAgents(anticoagulants[0]);
     }
 }
