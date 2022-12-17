@@ -9,12 +9,15 @@ public class MenuPanel : FadeableComponent
     // Start is called before the first frame update
     void Start()
     {
-        components = GetComponentsInChildren<FadeableComponent>(true);
+        components = GetComponentsInChildren<FadeableComponent>();
     }
     public override void setAlpha(float alpha)
     {
+        print("hi");
+        print(components);
         foreach (FadeableComponent component in components)
         {
+            print(component);
             component.setAlpha(alpha);
         }
     }

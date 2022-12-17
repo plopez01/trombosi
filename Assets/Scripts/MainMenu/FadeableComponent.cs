@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class FadeableComponent : MonoBehaviour
 {
-    private float alpha = 1;
     // Start is called before the first frame update
     void Start()
     {
