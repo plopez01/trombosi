@@ -10,7 +10,7 @@ public class MainBoton : MonoBehaviour
 
     public void changeSceneTo(string scene)
     {
-        animator.SetBool("Fade", true);
+        animator.SetTrigger("FadeOut");
         //SceneManager.LoadScene(scene);
     }
 

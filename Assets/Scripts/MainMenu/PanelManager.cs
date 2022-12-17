@@ -6,12 +6,28 @@ using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
-    [SerializeField] private GameObject currentPanel;
+    [SerializeField] private FadeableComponent currentPanel; // fading in panel
+    private FadeableComponent fadingOutPanel;
+    private bool fadingIn = true;
+    private float alpha = 0;
 
-    public void changeToPanel(GameObject panel)
+    public void changeToPanel(FadeableComponent panel)
     {
-        currentPanel.SetActive(false);
-        panel.SetActive(true);
+        panel.gameObject.SetActive(true);
+        currentPanel.gameObject.SetActive(false);
+        panel.gameObject.SetActive(true);
+        fadingOutPanel = this.currentPanel;
         this.currentPanel = panel;
+    }
+
+    void Update()
+    {
+        if (fadingIn)
+        {
+
+        } else
+        {
+
+        }
     }
 }
