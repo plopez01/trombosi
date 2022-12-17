@@ -8,6 +8,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Range(0, 1)] private float _intervalDelay;
 
+    [SerializeField, Range(0, 1)] private float stickChance;
+
+    [SerializeField, Range(0.5f, 1)] private float tromboBreakDist;
+
+    [SerializeField] private Transform tromboPos;
+
+    [SerializeField] private float stickForceMult = 1;
+
     [SerializeField] private Animator valveAnimator;
 
     [SerializeField] private TromboSpawner tromboSpawner;
@@ -15,7 +23,7 @@ public class GameManager : MonoBehaviour
     private BloodStream _bloodStream;
 
     private float timer = 0;
-    private float delayTimer = 0;
+
     private bool valveOpen = false;
 
     private float intervalDelay;
@@ -35,6 +43,20 @@ public class GameManager : MonoBehaviour
         get { return (Time.unscaledTime - timer) / pulseInterval; }
     }
 
+    public float StickChance
+    {
+        get { return stickChance; }
+    }
+
+    public float BreakDistance
+    {
+        get { return tromboBreakDist; }
+    }
+
+    public float StickForceMultiplier
+    {
+        get { return stickForceMult; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,22 +69,20 @@ public class GameManager : MonoBehaviour
     {
         valveAnimator.speed = 1 / pulseInterval;
         intervalDelay = pulseInterval * _intervalDelay;
-
-        if (Time.unscaledTime - delayTimer >= intervalDelay)
+            
+        if (Time.unscaledTime - timer >= pulseInterval + intervalDelay)
         {
-            delayTimer = Time.unscaledTime;
-            if (Time.unscaledTime - timer >= pulseInterval)
-            {
-                timer = Time.unscaledTime;
-                valveOpen = !valveOpen;
+            timer = Time.unscaledTime;
+            valveOpen = !valveOpen;
 
-                if (!valveOpen)
-                {
-                    tromboSpawner.Spawn(this);
-                }
-                valveAnimator.SetBool("Open", valveOpen);
-                Debug.Log("Valve open: " + valveOpen);
+            if (!valveOpen)
+            {
+                tromboSpawner.Spawn(this);
             }
+            valveAnimator.SetBool("Open", valveOpen);
+            Debug.Log("Valve open: " + valveOpen);
         }
+       
+
     }
 }
