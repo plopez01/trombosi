@@ -6,11 +6,9 @@ using UnityEngine.SceneManagement;
 public class MainBoton : MonoBehaviour
 {
     private GameObject divMain;
-    private Animator animator;
 
     public void changeSceneTo(string scene)
     {
-        animator.SetTrigger("FadeOut");
         //SceneManager.LoadScene(scene);
     }
 
@@ -18,7 +16,6 @@ public class MainBoton : MonoBehaviour
     void Start()
     {
         divMain = GetComponent<GameObject>();
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
