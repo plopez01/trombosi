@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField, Range(0, 1)] private float stickChance;
 
-    [SerializeField, Range(0.5f, 1)] private float tromboBreakDist;
+    [SerializeField, Range(0.5f, 5)] private float tromboBreakDist;
 
     [SerializeField] private Transform tromboPos;
 
@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
     public float StickForceMultiplier
     {
         get { return stickForceMult; }
+    }
+
+    public Vector3 TromboPosition
+    {
+        get { return tromboPos.localPosition; }
     }
 
     // Start is called before the first frame update

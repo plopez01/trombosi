@@ -1317,7 +1317,8 @@ MonoBehaviour:
   _intervalDelay: 0.5
   stickChance: 1
   tromboBreakDist: 1
-  stickForceMult: 32.41
+  tromboPos: {fileID: 749020239}
+  stickForceMult: 8
   valveAnimator: {fileID: 937110681}
   tromboSpawner: {fileID: 1913493354}
 --- !u!4 &2022744781
@@ -1360,7 +1361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closedDrag: 4
-  baseDrag: 1
+  baseDrag: 0.2
   streamForce: 3
   turbulence: 3
 --- !u!1 &2033547393

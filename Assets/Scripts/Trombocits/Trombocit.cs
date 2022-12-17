@@ -8,11 +8,7 @@ public class Trombocit : MonoBehaviour
 
     private Rigidbody2D rigidbody;
 
-    private bool stuckWall = false;
-    private bool stuckOther = false;
-    private bool canStick = false;
-
-    private Transform stickedTo;
+    bool stuck = false;
 
     private Vector2 stuckPos;
 
@@ -27,30 +23,16 @@ public class Trombocit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if we are stuck to another trombocit
-        if (stuckOther && stickedTo != null)
-        {
-            // If we are add stuck force
-            rigidbody.AddForce((stickedTo.transform.position - transform.position) * gameManager.StickForceMultiplier);
+        //Check if we are stuck to another trombocit
 
-            // If distance is too great break stuck
-            if (Vector2.Distance(stickedTo.position, transform.position) >= gameManager.BreakDistance)
-            {
-                stuckOther = false;
-                canStick = false;
-            }
-            return;
-        }
-        if (stuckWall)
+        if (stuck)
         {
+            rigidbody.AddForce((gameManager.TromboPosition - transform.position) * gameManager.StickForceMultiplier);
             // If we are stuck to a wall, check if distance is too great, if it is, unstuck it
             if (Vector2.Distance(stuckPos, transform.localPosition) >= gameManager.BreakDistance)
             {
-                stuckWall = false;
-                canStick = false;
-                stuckDrag = 0;
+                stuck = false;
             }
-            return;
         }
 
         rigidbody.AddForce(gameManager.bloodStream.Force, ForceMode2D.Force);
@@ -70,26 +52,22 @@ public class Trombocit : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Sticky" && !stuckWall)
+        if (collision.gameObject.tag == "Sticky" && !stuck)
         {
             if (Random.Range(0f, 1f) <= gameManager.StickChance)
             {
-                transform.SetParent(collision.transform);
-                rigidbody.drag = 100;
-                stuckWall = true;
-                canStick = true;
+                stuck = true;
                 stuckPos = transform.localPosition;
             }
         }
 
-        if (collision.gameObject.tag == "Trombocit" && !stuckOther)
+        if (collision.gameObject.tag == "Trombocit" && !stuck)
         {
             Trombocit _trombo = collision.gameObject.GetComponent<Trombocit>();
-            if (_trombo.canStick)
+            if (_trombo.stuck)
             {
-                canStick = true;
-                stuckOther = true;
-                stickedTo = collision.transform;
+                stuck = true;
+                stuckPos = transform.localPosition;
             }
         }
     }
