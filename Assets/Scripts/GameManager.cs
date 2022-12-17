@@ -8,12 +8,24 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int tromboAmount = 20;
 
+    [SerializeField, Range(1, 10)] private float closedDrag;
+
     [SerializeField] private Animator valveAnimator;
 
     [SerializeField] private TromboSpawner tromboSpawner;
 
     private float timer = 0;
     private bool valveOpen = false;
+
+    public float Drag
+    {
+        get { return closedDrag; }
+    }
+
+    public bool ValveOpen
+    {
+        get { return valveOpen; }
+    }
 
 
     // Start is called before the first frame update
@@ -31,10 +43,9 @@ public class GameManager : MonoBehaviour
             timer = Time.unscaledTime;
             valveOpen = !valveOpen;
 
-
             if (!valveOpen)
             {
-                tromboSpawner.Spawn(tromboAmount);
+                tromboSpawner.Spawn(tromboAmount, this);
             }
             valveAnimator.SetBool("Open", valveOpen);
             Debug.Log("Valve open: " + valveOpen);
