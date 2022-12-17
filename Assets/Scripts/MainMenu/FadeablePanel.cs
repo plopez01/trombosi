@@ -22,9 +22,9 @@ public class FadeablePanel : FadeableComponent
             Debug.LogError("Empty component list in " + this.name);
         components = list.ToArray();
     }
+
     public override void setAlpha(float alpha)
     {
-        print("Setting opacity of " + name + " to " + alpha);
         foreach (FadeableComponent component in components)
         {
             component.setAlpha(alpha);
