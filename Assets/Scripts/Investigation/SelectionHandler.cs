@@ -13,12 +13,12 @@ public class SelectionHandler : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private string defaultTitle;
     [SerializeField] private string defaultDesc;
+    [SerializeField] private Toaster toaster;
     private InvestigacionButton invActiva;
     void Start()
     {
         resetModal();
     }
-
     public void resetModal()
     {
         title.text = defaultTitle;
@@ -26,30 +26,33 @@ public class SelectionHandler : MonoBehaviour
         //title.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 600);
         cost.gameObject.transform.parent.gameObject.SetActive(false);
     }
-    public void setTo(InvestigacionButton investigation)
+    public void setTo(InvestigacionButton inv)
     {
-        print("Setting current investigation to " + investigation.title);
+        print("Setting current investigation to " + inv.title);
         cost.gameObject.transform.parent.gameObject.SetActive(true);
         //title.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 490);
-        title.text = investigation.title;
-        description.text = investigation.desc;
-        image.sprite = investigation.sprite;
-        cost.text = investigation.cost.ToString();
+        title.text = inv.title;
+        description.text = inv.desc;
+        image.sprite = inv.sprite;
+        cost.text = inv.isMaxed ? "MAX" : inv.cost.ToString();
         // TODO make button gray if not enough IPs
-        this.invActiva = investigation;
+        this.invActiva = inv;
     }
 
     public void purchase()
     {
+        if (invActiva.isMaxed)
+        {
+            toaster.showToast("Already maxed!");
+            return;
+        }
+        print(invActiva.currentLevel);
         if (ipManager.points > invActiva.cost)
         {
             ipManager.points -= invActiva.cost;
             invActiva.purchase();
+            setTo(invActiva);
         }
-    }
-    public void doThing(int i)
-    {
-        print(i);
     }
 
     // Update is called once per frame

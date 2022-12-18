@@ -7,15 +7,21 @@ public class InvestigacionButton : MonoBehaviour
 {
     [SerializeField] private bool tiered;
     [SerializeField] private string[] titles;
-    [SerializeField] private string[] descs;
+    [SerializeField, TextArea] private string[] descs;
     [SerializeField] private int[] costs;
     [SerializeField] private Sprite[] sprites;
     [SerializeField] private UnityEvent handler;
     public int levelOffset;
-    public int currentLevel;
+    public int level;
+    private bool maxed = false;
 
     public void purchase()
     {
+        if (currentLevel + 1 == costs.Length - 1)
+        {
+            maxed = true;
+        }
+        level++;
         handler.Invoke();
     }
 
@@ -36,8 +42,13 @@ public class InvestigacionButton : MonoBehaviour
         get { return costs[currentLevel]; }
     }
 
-    void Update()
+    public int currentLevel
     {
-        
+        get { return level; } // Todo wtf 
+    }
+
+    public bool isMaxed
+    {
+        get { return maxed; }
     }
 }
