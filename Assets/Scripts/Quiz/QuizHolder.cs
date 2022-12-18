@@ -36,7 +36,7 @@ public class QuizHolder : MonoBehaviour
             okC = correctCall;
             nokC = incorrectCall;
         }
-        popupController.openToast(
+        popupController.launchPopup(
             "Quiz Time!",
             question.question,
             ok,

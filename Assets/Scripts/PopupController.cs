@@ -16,14 +16,16 @@ public class PopupController : MonoBehaviour
     [SerializeField] private Image imageEl;
     private Call okCallback, nokCallback;
     public delegate void Call();
-    void Start()
+    void Awake()
     {
+        gameObject.SetActive(true); // ?????
         okButton.onClick.AddListener(onOk);
         nokButton.onClick.AddListener(onNok);
         nokText = nokButton.GetComponentInChildren<TextMeshProUGUI>(true);
         okText = okButton.GetComponentInChildren<TextMeshProUGUI>(true);
+        gameObject.SetActive(false);// ?????
     }
-    public void openToast(
+    public void launchPopup(
         string title,
         string desc,
         string ok,
@@ -32,9 +34,9 @@ public class PopupController : MonoBehaviour
         Call okCallback,
         Call nokCallback)
     {
-        print("Opening toast: " + title);
-
+        print("Opening popup: " + title);
         gameObject.SetActive(true);
+
         titleEl.text = title;
         descriptionEl.text = desc;
         nokText.text = nok;
