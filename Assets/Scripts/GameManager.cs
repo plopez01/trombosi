@@ -16,13 +16,16 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float stickForceMult = 1;
 
+    [SerializeField, Range(0, 100)] private int initialDanger;
+    [SerializeField] private int initialMoney;
+
     [SerializeField] private Animator valveAnimator;
 
     [SerializeField] private TromboSpawner tromboSpawner;
 
     [SerializeField] private AnticoagSpawner anticoagSpawner;
 
-    [SerializeField] private List<AnticoagulantData> anticoagulants = new List<AnticoagulantData>();
+    private UIFullfiller uiFullfiller;
 
     private BloodStream _bloodStream;
 
@@ -72,10 +75,19 @@ public class GameManager : MonoBehaviour
         get { return pulseInterval; }
     }
 
+    public UIFullfiller UI
+    {
+        get { return uiFullfiller; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _bloodStream = GetComponent<BloodStream>();
+        uiFullfiller = GetComponent<UIFullfiller>();
+
+        UI.Danger = initialDanger;
+        UI.Money = initialMoney;
     }
 
     // Update is called once per frame
@@ -98,8 +110,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ReleaseAnticoagulant()
+    public void ReleaseAnticoagulant(AnticoagulantData anticoagData)
     {
-        anticoagSpawner.SpawnAnticoagulantAgents(this, anticoagulants[0]);
+        if (UI.Money >= anticoagData.cost)
+        {
+            anticoagSpawner.SpawnAnticoagulantAgents(this, anticoagData);
+            UI.Money -= anticoagData.cost;
+        }
     }
 }

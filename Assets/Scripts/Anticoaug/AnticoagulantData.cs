@@ -14,8 +14,8 @@ public class AnticoagulantData : ScriptableObject
     public bool onlyAffectStuck = false;
 
     [Header("Release")]
+    public int cost = 100;
     public float duration = 10;
-
     public int amount = 10;
 
     [Header("Active Settings")]

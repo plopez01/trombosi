@@ -37,6 +37,10 @@ public abstract class StreamObject : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Destroyer") Destroy(gameObject);
+        if (collision.tag == "Destroyer")
+        {
+            Destroy(gameObject);
+            gameManager.UI.Money++;
+        }
     }
 }

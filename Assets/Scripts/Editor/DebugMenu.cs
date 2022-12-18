@@ -20,15 +20,7 @@ public class DebugMenu : EditorWindow
             GUILayout.Label("Test Functoins", EditorStyles.boldLabel);
 
 
-            if (GUILayout.Button("Release Anticoagulants"))
-            {
-                GameManager manager = GameObject.FindObjectOfType<GameManager>();
-
-                if(manager != null)
-                {
-                    manager.ReleaseAnticoagulant();
-                }
-            }
+           
 
         } else
         {

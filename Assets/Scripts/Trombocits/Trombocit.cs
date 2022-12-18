@@ -21,6 +21,7 @@ public class Trombocit : StreamObject
             if (Vector2.Distance(stuckPos, transform.localPosition) >= gameManager.BreakDistance)
             {
                 stuck = false;
+                gameManager.UI.Danger--;
             }
         }
 
@@ -41,6 +42,7 @@ public class Trombocit : StreamObject
             {
                 stuck = true;
                 stuckPos = transform.localPosition;
+                gameManager.UI.Danger++;
             }
         }
 
@@ -53,6 +55,7 @@ public class Trombocit : StreamObject
                 {
                     stuck = true;
                     stuckPos = transform.localPosition;
+                    gameManager.UI.Danger++;
                 }
             }
         }

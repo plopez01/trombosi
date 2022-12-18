@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57bb6944892c21148bc984eb8b0a1b58, type: 3}
-  m_Name: Anticoag
+  m_Name: Heparina
   m_EditorClassIdentifier: 
-  color: {r: 0.15021354, g: 0.5376943, b: 0.8207547, a: 1}
-  effectivity: 0.8
-  penetration: 3
-  duration: 10
-  amount: 10
-  targeted: 0
-  active: 1
+  color: {r: 0.81960785, g: 0.58699787, b: 0.14901961, a: 1}
+  effectivity: 0.7
+  penetration: 2
+  onlyAffectStuck: 0
+  cost: 300
+  duration: 15
+  amount: 13
+  active: 0
+  force: 2
+  targetRange: 4
