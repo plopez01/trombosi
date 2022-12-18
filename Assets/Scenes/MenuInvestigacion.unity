@@ -2914,7 +2914,6 @@ MonoBehaviour:
   defaultTitle: Select Investigation
   defaultDesc: Click an investigation button to view more information about it or
     unlock it with investigation points
-  quizer: {fileID: 1456394047}
 --- !u!1 &1566122458
 GameObject:
   m_ObjectHideFlags: 0

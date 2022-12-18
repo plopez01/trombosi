@@ -31,7 +31,7 @@ public class PanelManager : MonoBehaviour
         lastFadeTime = Time.unscaledTime;
         alpha = 0;
         fadingOutPanel = this.currentPanel;
-        print("Fading " + currentPanel + " into screen: " + screen);
+        print("Fading " + currentPanel + " into scene: " + screen);
         screenBeingOpened = SceneManager.LoadSceneAsync(screen);
         screenBeingOpened.allowSceneActivation = false;
         this.currentPanel = null;
@@ -41,7 +41,7 @@ public class PanelManager : MonoBehaviour
     {
         lastFadeTime = Time.unscaledTime + 5;
         // Workaround para no va si no está activo al inicio
-        foreach (FadeablePanel p in GetComponentsInChildren<FadeablePanel>())
+        foreach (FadeablePanel p in GetComponentsInChildren<FadeablePanel>(true))
         {
             p.gameObject.SetActive(true);
             if (p != currentPanel)

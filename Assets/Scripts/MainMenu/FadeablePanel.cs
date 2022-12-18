@@ -1,43 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 
 public class FadeablePanel : FadeableComponent
 {
-    private FadeableComponent[] components;
+    private SetAlpha[] alphers;
+    delegate void SetAlpha(float alpha);
 
     void Start()
     {
         var cs = GetComponentsInChildren<FadeableComponent>(true);
-        List<FadeableComponent> list = new();
-        foreach (FadeableComponent c in cs)
-        {
-            if (c != this)
-            {
-                list.Add(c);
-            }
+        List<SetAlpha> alphersList = new();
+        foreach (TextMeshProUGUI text in GetComponentsInChildren<TextMeshProUGUI>(true)) {
+            alphersList.Add(alpha => text.color = text.color.WithAlpha(alpha));
         }
-        if (list.Count == 0)
+        foreach (Image text in GetComponentsInChildren<Image>(true)) {
+            alphersList.Add(alpha => text.color = text.color.WithAlpha(alpha));
+        }
+        foreach (Button button in GetComponentsInChildren<Button>(true)) {
+            alphersList.Add(alpha => {
+                if (alpha == 0)
+                    button.enabled = false;
+                else if (alpha == 1)
+                    button.enabled = true;
+            });
+        }
+        if (alphersList.Count == 0)
             Debug.LogError("Empty component list in " + this.name);
-        components = list.ToArray();
+        alphers = alphersList.ToArray();
     }
 
     public override void setAlpha(float alpha)
     {
-        foreach (FadeableComponent component in components)
+        foreach (SetAlpha alpher in alphers)
         {
-            component.setAlpha(alpha);
+            alpher(alpha);
         }
     }
 
     public void moveY(float amount)
     {
         transform.Translate(new Vector2(0, amount));
-    }
-
-    void Update()
-    {
-        
     }
 }
