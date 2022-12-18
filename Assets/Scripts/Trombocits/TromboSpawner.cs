@@ -1,19 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TromboSpawner : MonoBehaviour
+public class TromboSpawner : Spawner
 {
-    [SerializeField] private GameObject tromboPrefab;
-    [SerializeField] private int amount = 10;
-    [SerializeField] private Vector2 area;
-    
+    [SerializeField] protected int amount;
 
     public void Spawn(GameManager gm)
     {
         for (int i = 0; i < amount; i++)
         {
-            GameObject tromobcit = Instantiate(tromboPrefab, Vector2.zero, Quaternion.identity, transform);
+            GameObject tromobcit = Instantiate(prefab, Vector2.zero, Quaternion.identity, transform);
             tromobcit.transform.localPosition = new Vector2(Random.Range(-area.x, area.x), Random.Range(-area.y, area.y));
             tromobcit.GetComponent<Trombocit>().SetGameManager(gm);
         }

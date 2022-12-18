@@ -2,30 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trombocit : MonoBehaviour
+public class Trombocit : StreamObject
 {
-    [SerializeField] private GameManager gameManager;
+    [HideInInspector] public bool stuck = false;
 
-    private Rigidbody2D rigidbody;
-
-    bool stuck = false;
+    [HideInInspector] public bool canStuck = true;
 
     private Vector2 stuckPos;
-
-    private float stuckDrag = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        rigidbody = GetComponent<Rigidbody2D>();
-    }
 
     // Update is called once per frame
     void Update()
     {
-        //Check if we are stuck to another trombocit
-
-        if (stuck)
+        //Check if we are stuck to another trombocit        
+        if (stuck && canStuck)
         {
             rigidbody.AddForce((gameManager.TromboPosition - transform.position) * gameManager.StickForceMultiplier);
             // If we are stuck to a wall, check if distance is too great, if it is, unstuck it
@@ -35,19 +24,13 @@ public class Trombocit : MonoBehaviour
             }
         }
 
-        rigidbody.AddForce(gameManager.bloodStream.Force, ForceMode2D.Force);
-        if (gameManager.ValveOpen)
-        {
-            rigidbody.drag = gameManager.bloodStream.Drag * Mathf.Pow(1-gameManager.AnimationPercentage, 2) + gameManager.bloodStream.BaseDrag + stuckDrag;
-        } else
-        {
-            rigidbody.drag = gameManager.bloodStream.Drag * Mathf.Pow(gameManager.AnimationPercentage, 2) + gameManager.bloodStream.BaseDrag + stuckDrag;
-        }
+        StreamPhysics();
     }
 
-    public void SetGameManager(GameManager _gm)
+
+    protected override void Init()
     {
-        gameManager = _gm;
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -63,18 +46,15 @@ public class Trombocit : MonoBehaviour
 
         if (collision.gameObject.tag == "Trombocit" && !stuck)
         {
-            Trombocit _trombo = collision.gameObject.GetComponent<Trombocit>();
-            if (_trombo.stuck)
+            if (Random.Range(0f, 1f) <= gameManager.StickChance)
             {
-                stuck = true;
-                stuckPos = transform.localPosition;
+                Trombocit _trombo = collision.gameObject.GetComponent<Trombocit>();
+                if (_trombo.stuck)
+                {
+                    stuck = true;
+                    stuckPos = transform.localPosition;
+                }
             }
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Destroyer") Destroy(gameObject);
-    }
-
 }

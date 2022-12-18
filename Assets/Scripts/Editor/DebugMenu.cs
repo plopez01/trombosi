@@ -9,7 +9,7 @@ public class DebugMenu : EditorWindow
     static void Init()
     {
         // Get existing open window or if none, make a new one:
-        DebugMenu window = (DebugMenu) EditorWindow.GetWindow(typeof(DebugMenu));
+        DebugMenu window = (DebugMenu) GetWindow(typeof(DebugMenu));
         window.Show();
     }
 

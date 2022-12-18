@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private AnticoagSpawner anticoagSpawner;
 
-    [SerializeField] private List<Anticoagulant> anticoagulants = new List<Anticoagulant>();
+    [SerializeField] private List<AnticoagulantData> anticoagulants = new List<AnticoagulantData>();
 
     private BloodStream _bloodStream;
 
@@ -67,6 +67,11 @@ public class GameManager : MonoBehaviour
         get { return tromboPos.localPosition; }
     }
 
+    public float PulseInterval
+    {
+        get { return pulseInterval; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +100,6 @@ public class GameManager : MonoBehaviour
 
     public void ReleaseAnticoagulant()
     {
-        anticoagSpawner.SpawnAnticoagulantAgents(anticoagulants[0]);
+        anticoagSpawner.SpawnAnticoagulantAgents(this, anticoagulants[0]);
     }
 }
