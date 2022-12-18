@@ -24,7 +24,7 @@ public class SelectionHandler : MonoBehaviour
         title.text = defaultTitle;
         description.text = defaultDesc;
         //title.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 600);
-        cost.gameObject.transform.parent.gameObject.SetActive(false);
+        //cost.gameObject.transform.parent.gameObject.SetActive(false); todo uncomment
     }
     public void setTo(InvestigacionButton investigation)
     {
@@ -41,12 +41,24 @@ public class SelectionHandler : MonoBehaviour
 
     public void purchase()
     {
-        if (ipManager.points > invActiva.cost)
+        if (invActiva != null && ipManager.points > invActiva.cost) //todo quitar null check, solo para unrelated test
         {
             ipManager.points -= invActiva.cost;
             invActiva.purchase();
         }
+        quizer.openQuiz(correct, inCorrect);
     }
+
+    void correct()
+    {
+        print("Correct!");
+    }
+    void inCorrect()
+    {
+        print("InCorrect!");
+    }
+
+    [SerializeField] private QuizHolder quizer;
 
     public void doThing(int i)
     {
