@@ -16,10 +16,15 @@ public class QuizHolder : MonoBehaviour
     {
         return quizQuestions[Random.Range(0, quizQuestions.Length)];
     }
+    int i = 0;
+    private QuizQuestion getNotSoRandomQuestion()
+    {
+        return quizQuestions[Mathf.Max(i++, quizQuestions.Length - 1)];
+    }
 
     public void openQuiz(PopupController.Call correctCall, PopupController.Call incorrectCall)
     {
-        QuizQuestion question = getRandomQuestion();
+        QuizQuestion question = getNotSoRandomQuestion();
         string ok, nok;
         PopupController.Call okC, nokC;
         int invert = Random.Range(0, 2);
